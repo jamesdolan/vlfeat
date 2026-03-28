@@ -316,7 +316,9 @@ defined(__DOXYGEN__)
 #    define snprintf _snprintf
 #    define isnan _isnan
 #  endif
-#  ifdef VL_BUILD_DLL
+#  ifdef VL_BUILD_STATIC
+#    define VL_EXPORT
+#  elif VL_BUILD_DLL
 #    ifdef __cplusplus
 #      define VL_EXPORT extern "C" __declspec(dllexport)
 #    else
@@ -337,7 +339,9 @@ defined(__DOXYGEN__)
 #  define snprintf _snprintf
 #  define isnan _isnan
 VL_INLINE float fabsf(float x) { return (float) fabs((double) x) ; }
-#  ifdef VL_BUILD_DLL
+#  ifdef VL_BUILD_STATIC
+#    define VL_EXPORT
+#  elif VL_BUILD_DLL
 #    define VL_EXPORT extern __declspec(dllexport)
 #  else
 #    define VL_EXPORT extern
@@ -347,7 +351,9 @@ VL_INLINE float fabsf(float x) { return (float) fabs((double) x) ; }
 #if defined(VL_COMPILER_GNUC) & ! defined(__DOXYGEN__)
 #  define VL_UNUSED __attribute__((unused))
 #  define VL_INLINE static __inline__
-#  ifdef VL_BUILD_DLL
+#  ifdef VL_BUILD_STATIC
+#    define VL_EXPORT
+#  elif VL_BUILD_DLL
 #    ifdef __cplusplus
 #      define VL_EXPORT __attribute__((visibility ("default"))) extern "C"
 #    else
