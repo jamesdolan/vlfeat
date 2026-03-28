@@ -206,5 +206,13 @@ VL_EXPORT double vl_toc (void) ;
 VL_EXPORT double vl_get_cpu_time (void) ;
 /** @} */
 
+/** ------------------------------------------------------------------
+ ** @name Explicit Init/Deinit
+ ** @{
+ **/
+VL_EXPORT void vl_constructor (void);
+VL_EXPORT void vl_destructor (void);
+/** @} */
+
 /* VL_GENERIC_H */
 #endif
