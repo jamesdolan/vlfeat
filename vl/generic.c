@@ -1475,7 +1475,7 @@ static VlThreadState *
 vl_thread_specific_state_new (void)
 {
   VlThreadState * self ;
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: thread constructor begins.\n") ;
 #endif
   self = malloc(sizeof(VlThreadState)) ;
@@ -1499,7 +1499,7 @@ vl_thread_specific_state_new (void)
 static void
 vl_thread_specific_state_delete (VlThreadState * self)
 {
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: thread destructor begins.\n") ;
 #endif
   free (self) ;
@@ -1514,14 +1514,14 @@ VL_EXPORT void
 vl_constructor (void)
 {
   VlState * state ;
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: constructor begins.\n") ;
 #endif
 
   state = vl_get_state() ;
 
 #if ! defined(VL_DISABLE_THREADS)
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: constructing thread specific state.\n") ;
 #endif
 #if defined(VL_THREADS_POSIX)
@@ -1540,7 +1540,7 @@ vl_constructor (void)
 #else
 
 /* threading support disabled */
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: constructing the generic thread state instance (threading support disabled).\n") ;
 #endif
   vl_get_state()->threadState = vl_thread_specific_state_new() ;
@@ -1578,7 +1578,7 @@ vl_constructor (void)
   state->numThreads = 1 ;
 #endif
 
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: constructor ends.\n") ;
 #endif
 }
@@ -1588,14 +1588,14 @@ VL_EXPORT void
 vl_destructor ()
 {
   VlState * state ;
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: destructor begins.\n") ;
 #endif
 
   state = vl_get_state() ;
 
 #if ! defined(VL_DISABLE_THREADS)
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: destroying a thread specific state instance.\n") ;
 #endif
 #if   defined(VL_THREADS_POSIX)
@@ -1635,13 +1635,13 @@ vl_destructor ()
   DeleteCriticalSection (&state->mutex) ;
 #endif
 #else
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: destroying the generic thread state instance (threading support disabled).\n") ;
 #endif
   vl_thread_specific_state_delete(vl_get_state()->threadState) ;
 #endif
 
-#if defined(DEBUG)
+#if defined(VL_DEBUG_VERBOSE)
   printf("VLFeat DEBUG: destructor ends.\n") ;
 #endif
 }
